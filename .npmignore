@@ -1,0 +1,5 @@
+tests/
+Gruntfile.js
+bower.json
+jsconfig.json
+node_modules/

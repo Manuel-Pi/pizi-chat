@@ -1,0 +1,21 @@
+{
+  "name": "pizi-chat",
+  "version": "0.0.1",
+  "authors": [
+    "Manuel Pi"
+  ],
+  "main": "build/pizi-chat.js",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-babel": "^5.0.3",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.1",
+    "grunt-contrib-jshint": "^0.11.3"
+  },
+  "ignore": [
+    "bower.json",
+    "tests/",
+    "Gruntfile.js",
+    "jsconfig.json"
+  ]
+}
