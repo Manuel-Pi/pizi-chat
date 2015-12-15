@@ -1,16 +1,35 @@
 module.exports = function(grunt) {
+	
+	require('load-grunt-tasks')(grunt);
+	
 	grunt.initConfig({
 		srcFile: 'src/',
 		build: 'build/',
 		testFile: 'tests/',
-		serverFolder: 'C:/Users/e_na/Documents/GitHub/pizi-express-server/Apps/pizi-chat/',
+		serverFolder: 'C:/Developppment/Web/Servers/pizi-express-server/Apps/pizi-chat/',
+		deployDev: ["**",
+                "!css/sass/**",
+                "!js/lib/*/**"],
+		jsDevFiles: ["src/js/*.js",
+                "src/js/views/*.js",
+                "src/js/modules/*.js",
+                "src/js/models/*.js"],
+		sassDevFiles: "src/css/sass/*.scss",
+		htmlDevFiles: ["src/index.html",
+                "src/html/*.html"],
 		jshint: {
 			all: {
 				options: {
 					devel: true,
 					esnext: true
 				},
-				src: '<%= srcFile %>'
+				src: '<%= jsDevFiles %>'
+			}
+		},
+		sass: {
+			all : {
+				src : "src/css/sass/main.scss",
+				dest : "src/css/style.css"
 			}
 		},
 		copy: {
@@ -19,13 +38,7 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						cwd: '<%= srcFile %>',
-						src: ['**'],
-						dest: '<%= serverFolder %>'
-					},
-					{
-						expand: true,
-						cwd: '<%= testFile %>',
-						src: ['**'],
+						src: '<%= deployDev %>',
 						dest: '<%= serverFolder %>'
 					}
 				]
@@ -52,7 +65,9 @@ module.exports = function(grunt) {
 				force: true
 			},
 			deployDev: '<%= serverFolder %>',
-			build: '<%= build %>'
+			build: '<%= build %>',
+			// Clean the css and less files copied with grunt-bower
+      		bower: "<%= serverFolder %>/trash",
 		},
 		babel: {
 			options: {
@@ -69,14 +84,47 @@ module.exports = function(grunt) {
 					"ext": ".js"
 				}]
 			}
-		}
+		},
+		bower: {
+			dev : {
+				dest: '<%= serverFolder %>/trash',
+				js_dest: '<%= serverFolder %>/js/lib',
+				options: {
+					expand: true
+				}       
+			}
+		},
+		watch: {
+			sass : {
+				files : "<%= sassDevFiles %>",
+				tasks: ['sass']
+			},
+			css : {
+				files : "src/css/style.css",
+				tasks: ['copy:deployDev'],
+				options: {
+					spawn: false,
+				}
+			},
+			js :{
+				files : "<%= jsDevFiles %>",
+				tasks: ['jshint', 'copy:deployDev'],
+				options: {
+					spawn: false,
+				}
+			},
+			html:{
+				files : "<%= htmlDevFiles %>",
+				tasks: ['copy:deployDev'],
+				options: {
+					spawn: false,
+				}
+			}
+		},
 	});
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-babel');
 	
+	grunt.registerTask('default', ['watch']);
 	grunt.registerTask('build', ['jshint', 'clean:build', 'babel']);
-	grunt.registerTask('deployDev', ['jshint', 'clean:deployDev', 'copy:deployDev']);
+	grunt.registerTask('deployDev', ['jshint', 'sass', 'clean:deployDev', 'copy:deployDev', 'bower', 'clean:bower']);
 	grunt.registerTask('deployBuild', ['build', 'clean:deployDev', 'copy:deployDevBabel']);
 };

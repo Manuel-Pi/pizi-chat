@@ -2,7 +2,7 @@
   "name": "pizi-chat",
   "version": "0.0.1",
   "authors": [
-  	"Manuel Pi"
+    "Manuel Pi"
   ],
   "main": "build/pizi-chat.js",
   "ignore": [
@@ -10,5 +10,11 @@
     "tests/",
     "Gruntfile.js",
     "jsconfig.json"
-  ]
+  ],
+  "dependencies": {
+    "backbone": "~1.2.3",
+    "foundation": "~5.5.3",
+    "moment": "~2",
+    "text": "~2"
+  }
 }
