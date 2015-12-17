@@ -6,10 +6,12 @@ function(Backbone,
 		var name = prompt("Enter a name:");
 		if(name){
 			
-			window.App = App || {};
+			window.App = window.App || {};
+			
+			App.user = name;
 			
 			// Connect to server
-			App.socket = io.connect('http://localhost:8080/pizi-chat');
+			App.socket = io.connect('http://localhost:8087/pizi-chat');
 			App.socket.emit('login', name);
 			
 			var chatView = new ChatView();

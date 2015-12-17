@@ -6,7 +6,8 @@ module.exports = function(grunt) {
 		srcFile: 'src/',
 		build: 'build/',
 		testFile: 'tests/',
-		serverFolder: 'C:/Developppment/Web/Servers/pizi-express-server/Apps/pizi-chat/',
+		//serverFolder: 'C:/Developppment/Web/Servers/pizi-express-server/Apps/pizi-chat/',
+		serverFolder: 'C:/Users/e_na/Documents/GitHub/pizi-express-server/Apps/pizi-chat/',
 		deployDev: ["**",
                 "!css/sass/**",
                 "!js/lib/*/**"],
@@ -27,9 +28,13 @@ module.exports = function(grunt) {
 			}
 		},
 		sass: {
+			options: {
+				sourceMap: false	
+			},
 			all : {
-				src : "src/css/sass/main.scss",
-				dest : "src/css/style.css"
+				files: {
+					'src/css/style.css': 'src/css/sass/main.scss'
+				}
 			}
 		},
 		copy: {

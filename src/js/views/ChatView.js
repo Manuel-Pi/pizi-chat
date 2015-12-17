@@ -23,7 +23,7 @@ function(Backbone,
 			if(message && message.text){
 				var usr = document.createElement('div');
 				usr.innerHTML = message.user;
-				usr.clasName = "user";
+				usr.className = "user";
 				var div = document.createElement('div');
 				div.appendChild(usr);
 				div.className = send ? "sent" : "received";
@@ -42,7 +42,7 @@ function(Backbone,
 		sendMessage: function(){
 			var message = {
 				text: document.getElementById("message").value,
-				user: name
+				user: App.user
 			};
 			document.getElementById("message").value = "";
 			this.addMessage(message, true);
