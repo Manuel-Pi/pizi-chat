@@ -6753,12 +6753,12 @@ body {
 .hide {
   display: none; }
 
-#pizi-chat {
+pizi-chat {
   width: 100%;
   height: 100%;
   overflow: hidden; }
 
-#chat {
+chat {
   width: calc(100% - 180px);
   height: 100%;
   float: left; }
@@ -6825,24 +6825,34 @@ body {
 .empty {
   clear: both; }
 
+/* Connected Panel */
+user-list {
+  display: block;
+  margin-bottom: 20px;
+  height: 50%; }
+  user-list #connected {
+    background-color: #333;
+    color: #999;
+    width: 180px;
+    margin-bottom: 10px;
+    max-height: 50%;
+    overflow: hidden; }
+  user-list #connected > div {
+    padding-top: 5px;
+    padding-left: 5px; }
+
+pizi-chat {
+  display: block; }
+
 /* Control Panel */
-#control {
+info {
   float: left;
   height: 100%;
   background-color: #333;
   color: #999;
   width: 180px; }
 
-/* Connected Panel */
-#connected {
-  background-color: #333;
-  color: #999;
-  width: 180px;
-  margin-bottom: 10px;
-  max-height: 50%;
-  overflow: hidden; }
-
-#control h1 {
+info h1 {
   background-color: #999;
   width: 100%;
   color: #333;
@@ -6850,7 +6860,3 @@ body {
   padding: 0 5px;
   float: left;
   font-size: 1em; }
-
-#connected > div {
-  padding-top: 5px;
-  padding-left: 5px; }

@@ -1,7 +1,11 @@
 define(['backbone',
-		'views/ChatView'],
+		'views/ChatView',
+		'views/UserListView',
+		'views/RoomListView'],
 function(Backbone,
-		ChatView){
+		ChatView,
+		UserView,
+		RoomView){
 	if(io){
 		var name = prompt("Enter a name:");
 		if(name){
@@ -14,22 +18,21 @@ function(Backbone,
 			App.socket = io.connect('http://localhost:8087/pizi-chat');
 			App.socket.emit('login', name);
 			
+			$('body').html("<pizi-chat><info></info></pizi-chat>");
+			var $PiziChat = $('pizi-chat');
+			var $Info = $PiziChat.find("info");
+			
 			var chatView = new ChatView();
-			$('body').html(chatView.$el);
+			$PiziChat.prepend(chatView.$el);
 			chatView.render();
 			
-			// Define 'users' event  
-			App.socket.on('users', function(user) {
-				// Display Chat
-				document.getElementById("pizi-chat").className = "";
-				
-				document.getElementById("userList").innerHTML = "";
-				for(var i = 0; i < user.length; i++){
-					var div = document.createElement('div');
-					div.innerHTML = user[i];
-					document.getElementById("userList").appendChild(div);
-				}
-			});
+			var userView = new UserView();
+			$Info.append(userView.$el);
+			chatView.render();
+			
+			var roomView = new RoomView();
+			$Info.append(roomView.$el);
+			roomView.render();
 			
 			App.socket.on('disconnect', function(message) {
 				if(message === 'unauthorized'){

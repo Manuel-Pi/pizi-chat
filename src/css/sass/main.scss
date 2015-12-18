@@ -1,3 +1,27 @@
 @import "../../js/lib/foundation/scss/normalize";
 @import "../../js/lib/foundation/scss/foundation";
 @import 'chat';
+@import 'roomList';
+@import 'userList';
+
+
+pizi-chat{
+	display: block;
+}
+/* Control Panel */
+info{
+	float:left;
+	height: 100%;
+	background-color: #333;
+	color: #999;
+	width: 180px;
+}
+info  h1{
+	background-color: #999;
+	width: 100%;
+	color: #333;
+	margin: 0;
+	padding: 0 5px;
+	float: left;
+	font-size: 1em;
+}
