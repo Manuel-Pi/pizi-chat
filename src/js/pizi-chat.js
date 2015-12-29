@@ -1,38 +1,52 @@
 define(['backbone',
 		'views/ChatView',
 		'views/UserListView',
-		'views/RoomListView'],
+		'views/RoomListView',
+		'pizi-backbone'],
 function(Backbone,
 		ChatView,
 		UserView,
-		RoomView){
+		RoomView,
+		Pizi){
 	if(io){
 		var name = prompt("Enter a name:");
 		if(name){
-			
-			window.App = window.App || {};
-			
+			window.App = window.App || {
+				user: name,
+				socket: io.connect('http://localhost:8087/pizi-chat'),
+				notification: new Pizi.NotificationView({container: '#render'})
+			};
 			App.user = name;
 			
 			// Connect to server
-			App.socket = io.connect('http://localhost:8087/pizi-chat');
 			App.socket.emit('login', name);
 			
-			$('body').html("<pizi-chat><info></info></pizi-chat>");
-			var $PiziChat = $('pizi-chat');
-			var $Info = $PiziChat.find("info");
+			App.socket.on('unauthorized', function(data){
+				alert(data.message);
+				name = prompt("Enter a name:");
+				App.socket.emit('login', name);
+			});
 			
-			var chatView = new ChatView();
-			$PiziChat.prepend(chatView.$el);
-			chatView.render();
-			
-			var userView = new UserView();
-			$Info.append(userView.$el);
-			chatView.render();
-			
-			var roomView = new RoomView();
-			$Info.append(roomView.$el);
-			roomView.render();
+			App.socket.on('loginSuccess', function(data){
+				
+				$('body').append("<pizi-chat><info></info></pizi-chat>");
+				var $PiziChat = $('pizi-chat');
+				var $Info = $PiziChat.find("info");
+				
+				var chatView = new ChatView();
+				$PiziChat.prepend(chatView.$el);
+				chatView.render();
+				
+				var userView = new UserView(data);
+				$Info.append(userView.$el);
+				userView.render();
+				
+				var roomView = new RoomView();
+				$Info.append(roomView.$el);
+				roomView.render();
+				
+				App.notification.success('Successfully connected!');
+			});
 			
 			App.socket.on('disconnect', function(message) {
 				if(message === 'unauthorized'){

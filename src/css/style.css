@@ -6742,9 +6742,6 @@ th.hide-for-touch {
   th.show-for-print {
     display: table-cell !important; } }
 
-html * {
-  box-sizing: border-box; }
-
 body {
   background-color: black;
   padding: 0;
@@ -6754,109 +6751,83 @@ body {
   display: none; }
 
 pizi-chat {
+  display: block;
   width: 100%;
   height: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+  /* Control Panel */ }
+  pizi-chat info {
+    float: left;
+    height: 100%;
+    background-color: #333;
+    color: #999;
+    width: 180px; }
+  pizi-chat info h1 {
+    background-color: #999;
+    width: 100%;
+    color: #333;
+    margin: 0;
+    padding: 0 5px;
+    float: left;
+    font-size: 1em; }
 
 chat {
   width: calc(100% - 180px);
   height: 100%;
-  float: left; }
-
-#render {
-  height: calc(100% - 80px);
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  background-color: #333;
-  opacity: 0.7; }
-
-#message {
-  width: 100%;
-  height: 60px;
-  resize: none;
-  margin: 0;
-  border: 0;
-  padding: 0;
-  text-indent: 5px; }
-
-#poke {
-  width: 100%;
-  padding: 0; }
-
-/* Messages */
-.received {
-  margin-left: 5px; }
-
-.sent {
-  margin-right: 5px; }
-
-.sent > span, .received > span {
-  opacity: 1;
-  padding: 10px;
-  border-radius: 10px;
-  white-space: pre-wrap; }
-
-.sent > span {
-  color: white;
-  background-color: #666;
-  float: right; }
-
-.received > span {
-  color: #333;
-  background-color: #BBB;
-  float: left; }
-
-/* Sender */
-.sent > div, .received > div {
-  margin: 0;
-  font-size: 0.8em;
-  height: 15px;
-  line-height: 15px;
-  color: white; }
-
-.sent > div {
-  text-align: right;
-  padding-right: 10px; }
-
-.received > div {
-  padding-left: 10px; }
-
-.empty {
-  clear: both; }
+  float: left;
+  /* Messages */
+  /* Sender */ }
+  chat #render {
+    height: calc(100% - 80px);
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: #222;
+    position: relative; }
+  chat #message {
+    width: 100%;
+    height: 60px;
+    resize: none;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    text-indent: 5px; }
+  chat #poke {
+    width: 100%;
+    padding: 0; }
+  chat .received {
+    margin-left: 5px; }
+  chat .sent {
+    margin-right: 5px; }
+  chat .sent > span, chat .received > span {
+    opacity: 1;
+    padding: 10px;
+    border-radius: 10px;
+    white-space: pre-wrap; }
+  chat .sent > span {
+    color: #DDD;
+    background-color: #666;
+    float: right; }
+  chat .received > span {
+    color: #333;
+    background-color: #BBB;
+    float: left; }
+  chat .sent > div, chat .received > div {
+    margin: 0;
+    font-size: 0.8em;
+    height: 15px;
+    line-height: 15px;
+    color: #DDD; }
+  chat .sent > div {
+    text-align: right;
+    padding-right: 10px; }
+  chat .received > div {
+    padding-left: 10px; }
+  chat .empty {
+    clear: both; }
 
 /* Connected Panel */
 user-list {
   display: block;
   margin-bottom: 20px;
   height: 50%; }
-  user-list #connected {
-    background-color: #333;
-    color: #999;
-    width: 180px;
-    margin-bottom: 10px;
-    max-height: 50%;
-    overflow: hidden; }
-  user-list #connected > div {
-    padding-top: 5px;
-    padding-left: 5px; }
-
-pizi-chat {
-  display: block; }
-
-/* Control Panel */
-info {
-  float: left;
-  height: 100%;
-  background-color: #333;
-  color: #999;
-  width: 180px; }
-
-info h1 {
-  background-color: #999;
-  width: 100%;
-  color: #333;
-  margin: 0;
-  padding: 0 5px;
-  float: left;
-  font-size: 1em; }

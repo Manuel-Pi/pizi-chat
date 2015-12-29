@@ -9,7 +9,7 @@ function(Backbone,
 		initialize: function(){
 			this.rooms = [];
 			var view = this;
-			App.socket.on('users', function(rooms) {
+			App.socket.on('rooms', function(rooms) {
 				view.rooms = rooms;
 				view.render();
 			});

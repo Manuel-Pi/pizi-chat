@@ -45,6 +45,9 @@ module.exports = function(grunt) {
 						cwd: '<%= srcFile %>',
 						src: '<%= deployDev %>',
 						dest: '<%= serverFolder %>'
+					},
+					{
+						'<%= serverFolder %>js/lib/modernizr/modernizr.js': 'src/js/lib/modernizr/modernizr.js'
 					}
 				]
 			},
