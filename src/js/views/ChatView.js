@@ -1,55 +1,47 @@
 define(['backbone',
-		'text!../../html/chat.html'],
+		'text!../../html/chat.html',
+		'text!../../html/message.html',
+		'pizi-backbone'],
 function(Backbone,
-		ChatTemplate){
+		ChatTemplate,
+		MessageTemplate,
+		Pizi){
 	return Backbone.View.extend({
 		template : _.template(ChatTemplate),
 		tagName: "chat",
 		className: "container-fluid",
 		events:{
-			'click #poke': 'sendMessage',
-			'keyup #message': 'pressEnter'
+			'click .poke': 'sendMessage',
+			'keyup .message': 'pressEnter'
 		},
-		initialize: function(){
-			var view = this;
-			App.socket.on('message', function(message) {
-				view.addMessage(message);
-			});	
+		initialize: function(options){
+			options = options || {};
+			this.room = options.room;
 		},
 		pressEnter: function(event){
 			if(event.keyCode == 13 && !event.shiftKey) this.sendMessage();
 		},
 		addMessage: function(message, send){
 			if(message && message.text){
-				var usr = document.createElement('div');
-				usr.innerHTML = message.user;
-				usr.className = "user";
-				var div = document.createElement('div');
-				div.appendChild(usr);
-				div.className = send ? "sent" : "received";
-				var span = document.createElement('span');
-				span.innerHTML = message.text;
-				span.className = send ? "sent" : "received";
-				div.appendChild(span);
-				var render = document.getElementById("render");
-				render.appendChild(div);
-				var clear = document.createElement('div');
-				clear.className = "empty";
-				div.appendChild(clear);
-				render.scrollTop = render.scrollHeight;
+				var $render = this.$el.find('.render');
+				$render.append(_.template(MessageTemplate)({message: message, type:  send ? "sent" : "received"}));
+				$render[0].scrollTop = $render[0].scrollHeight;
 			}
 		},
 		sendMessage: function(){
+			var $text = this.$el.find(".message");
 			var message = {
-				text: document.getElementById("message").value,
-				user: App.user
+				text: $text.val(),
+				user: App.user,
+				roomId: this.room.id
 			};
-			document.getElementById("message").value = "";
+			$text.val("");
 			this.addMessage(message, true);
 			if(message.text) App.socket.emit('message', message);
 		},
 		render: function(){
 			this.$el.html(this.template());
+			this.notification = this.notification || new Pizi.NotificationView({container: this.$el.find(".render")});
 			this.delegateEvents();
 			return this;
 		}

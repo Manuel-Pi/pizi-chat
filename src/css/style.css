@@ -6777,14 +6777,14 @@ chat {
   float: left;
   /* Messages */
   /* Sender */ }
-  chat #render {
+  chat .render {
     height: calc(100% - 80px);
     width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
     background-color: #222;
     position: relative; }
-  chat #message {
+  chat .message {
     width: 100%;
     height: 60px;
     resize: none;
@@ -6792,7 +6792,7 @@ chat {
     border: 0;
     padding: 0;
     text-indent: 5px; }
-  chat #poke {
+  chat .poke {
     width: 100%;
     padding: 0; }
   chat .received {
@@ -6818,16 +6818,20 @@ chat {
     height: 15px;
     line-height: 15px;
     color: #DDD; }
-  chat .sent > div {
+  chat .sent > div, chat .sent > span {
     text-align: right;
     padding-right: 10px; }
-  chat .received > div {
+  chat .received > div, chat .received > span {
     padding-left: 10px; }
   chat .empty {
     clear: both; }
 
-/* Connected Panel */
-user-list {
+room-list {
   display: block;
   margin-bottom: 20px;
   height: 50%; }
+  room-list .actualRoom {
+    background-color: #008CBA;
+    color: #DDD; }
+
+/* Connected Panel */

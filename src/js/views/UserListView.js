@@ -10,11 +10,13 @@ function(Backbone,
 			options = options || {};
 			this.users = options.users;
 			var view = this;
-			App.socket.on('userJoin', function(user) {
-				view.addUser(user);
+			App.socket.on('joinRoom', function(data) {
+				if(data.roomId ){
+					view.addUser(data.user);
+				}
 			});
-			App.socket.on('userLeft', function(user) {
-				view.removeUser(user);
+			App.socket.on('leaveRoom', function(data) {
+				view.removeUser(data.user);
 			});
 		},
 		addUser: function(user, silent){
@@ -23,8 +25,8 @@ function(Backbone,
 			if(!silent) App.notification.notify(user + ' join the room!');
 		},
 		removeUser: function(user, silent){
-			var userList = this.$el.find('#userList #' + user);
-			userList.remove();
+			var $user = this.$el.find('#userList #' + user);
+			$user.remove();
 			if(!silent) App.notification.notify(user + ' left the room!');
 		},
 		render: function(){

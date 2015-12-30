@@ -9,7 +9,7 @@ function(Backbone,
 		template:  _.template('<div data-alert class="alert-box <%= type %>" style="margin-bottom: 0;padding: 0;opacity:1;"><%= message %><a href="#" class="close">&times;</a></div>'),
 		initialize: function(options){
 			options= options || {};
-			this.container = options.container || 'body';
+			this.container = options.container || $('body');
 		},
 		success: function(message){
 			this.render({
@@ -29,7 +29,7 @@ function(Backbone,
 			});
 		},
 		checkEl: function(){
-			var $notification = $('notification');
+			var $notification = this.container.find('notification');
 			if($notification.length === 0){
 				this.$el.prependTo(this.container);
 				this.$el.css({
