@@ -22,7 +22,7 @@ function(Backbone,
 			if(event.keyCode == 13 && !event.shiftKey) this.sendMessage();
 		},
 		addMessage: function(message, send){
-			if(message && message.text){
+			if(message && message.text !== ""){
 				var $render = this.$el.find('.render');
 				$render.append(_.template(MessageTemplate)({message: message, type:  send ? "sent" : "received"}));
 				$render[0].scrollTop = $render[0].scrollHeight;
@@ -40,7 +40,7 @@ function(Backbone,
 			if(message.text) App.socket.emit('message', message);
 		},
 		render: function(){
-			this.$el.html(this.template());
+			this.$el.html(this.template({name: this.room.name}));
 			this.notification = this.notification || new Pizi.NotificationView({container: this.$el.find(".render")});
 			this.delegateEvents();
 			return this;

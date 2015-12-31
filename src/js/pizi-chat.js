@@ -30,8 +30,8 @@ function(Backbone,
 			
 			App.socket.on('unauthorized', function(data){
 				alert(data.message);
-				name = prompt("Enter a name:");
-				App.socket.emit('login', name);
+				App.name = prompt("Enter a name:");
+				App.socket.emit('login', App.name);
 			});
 			
 			App.socket.on('loginSuccess', function(data){
@@ -54,6 +54,7 @@ function(Backbone,
 						if(App.rooms[room.id]){
 							App.rooms[room.id].$el.show();
 						} else {
+							room.connected.push(App.user);
 							var chatView = new ChatView({room: room});
 							$PiziChat.prepend(chatView.$el);
 							chatView.render();
@@ -62,9 +63,8 @@ function(Backbone,
 						}
 						App.actualRoom = room.id;
 						App.roomView.setActual(App.actualRoom);
-						
-						App.userView.users = room.connected;
-						App.userView.render();
+						// Render user view
+						App.userView.render(room.connected);
 					}
 				};
 				

@@ -11,12 +11,44 @@ function(Backbone,
 			this.rooms = options.rooms;
 			var view = this;
 			App.socket.on('roomAdded', function(room) {
-				this.rooms.push(room);
+				view.rooms.push(room);
 				view.addRoom(room);
 			});
 			App.socket.on('roomDeleted', function(room) {
 				view.removeRoom(room);
-				this.rooms.slice(this.rooms.indexOf(room), 1);
+				view.rooms.slice(view.rooms.indexOf(room), 1);
+			});
+			App.socket.on('roomData', function(room) {
+				var i = view.rooms.length;
+				while(i--){
+					if(view.rooms[i].id === room.id){
+						view.rooms[i] = room;
+						App.userView.render(room.connected);
+						break;	
+					}
+				}
+			});
+			App.socket.on('userJoinRoom', function(data) {
+				var i = view.rooms.length;
+				while(i--){
+					if(view.rooms[i].id === data.roomId && view.rooms[i].connected.indexOf(data.user) === -1){
+						view.rooms[i].connected.push(data.user);
+						App.userView.render(view.rooms[i].connected);
+						if(data.roomId === App.actualRoom) App.notification.notify(data.user + " join the room!");
+						break;
+					}	
+				}
+			});
+			App.socket.on('userLeaveRoom', function(data) {
+				var i = view.rooms.length;
+				while(i--){
+					if(view.rooms[i].id === data.roomId && view.rooms[i].connected.indexOf(data.user) > -1){
+						view.rooms[i].connected.splice(view.rooms[i].connected.indexOf(data.user), 1);
+						App.userView.render(view.rooms[i].connected);
+						if(data.roomId === App.actualRoom) App.notification.notify(data.user + " leave the room!");
+						break;
+					}	
+				}
 			});
 		},
 		events:{

@@ -9,6 +9,17 @@ chat{
 		overflow-y: scroll;
 		background-color: #222;
 		position: relative;
+		padding-top: 20px;
+		.name{
+			position: fixed;
+			width: calc(100% - 180px);
+			top: 0;
+			z-index: 1;
+			margin-top: 0;
+			color: #444;
+			text-align: center;
+			background: linear-gradient(to bottom, #222 20%, transparent 100%);
+		}
 	}
 	.message{
 		width: 100%;
