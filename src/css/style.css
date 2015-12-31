@@ -6805,15 +6805,16 @@ chat {
   chat .poke {
     width: 100%;
     padding: 0; }
-  chat .received {
-    margin-left: 5px; }
-  chat .sent {
-    margin-right: 5px; }
+  chat .sent, chat .received {
+    margin-right: 10px;
+    margin-left: 10px; }
   chat .sent > span, chat .received > span {
     opacity: 1;
     padding: 10px;
     border-radius: 10px;
-    white-space: pre-wrap; }
+    white-space: pre-wrap;
+    max-width: 100%;
+    word-wrap: break-word; }
   chat .sent > span {
     color: #DDD;
     background-color: #666;
@@ -6830,20 +6831,37 @@ chat {
     color: #DDD; }
   chat .sent > div, chat .sent > span {
     text-align: right;
-    padding-right: 10px; }
+    padding-right: 5px; }
   chat .received > div, chat .received > span {
-    padding-left: 10px; }
+    padding-left: 5px; }
   chat .empty {
     clear: both; }
 
 room-list {
-  text-indent: 5px;
   display: block;
   margin-bottom: 20px;
   height: 50%; }
-  room-list .actualRoom {
-    background-color: #008CBA;
-    color: #DDD; }
+  room-list .add {
+    float: right;
+    margin-right: 5px; }
+    room-list .add:hover {
+      cursor: pointer; }
+  room-list #roomList {
+    float: left;
+    width: 100%;
+    text-indent: 5px; }
+    room-list #roomList .actualRoom {
+      background-color: #008CBA;
+      color: #DDD; }
+    room-list #roomList span.label {
+      text-indent: 0;
+      margin-left: 5px;
+      top: -2; }
+    room-list #roomList span.close {
+      float: right;
+      margin-right: 5px; }
+      room-list #roomList span.close:hover {
+        cursor: pointer; }
 
 /* Connected Panel */
 user-list {

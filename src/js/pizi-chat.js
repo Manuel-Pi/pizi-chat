@@ -25,6 +25,7 @@ function(Backbone,
 						App.rooms[App.actualRoom].notification.notify(message);
 					},
 				},
+				popup: new Pizi.PopUpView(),
 				rooms: {}
 			};
 			
@@ -34,10 +35,17 @@ function(Backbone,
 				App.socket.emit('login', App.name);
 			});
 			
+			App.socket.on('disconnect', function(message) {
+				if(message === 'unauthorized'){
+					alert("Name already used!");
+				} else {
+					alert("Server closed!");
+					document.getElementsByTagName('body')[0].innerHTML = "";
+				}
+			});
+			
 			App.socket.on('loginSuccess', function(data){
-				
 				$('body').append("<pizi-chat><info></info></pizi-chat>");
-				
 				var $PiziChat = $('pizi-chat');
 				var $Info = $PiziChat.find("info");
 				
@@ -65,29 +73,24 @@ function(Backbone,
 						App.roomView.setActual(App.actualRoom);
 						// Render user view
 						App.userView.render(room.connected);
+					} else {
+						App.rooms[App.actualRoom].$el.html("");
 					}
 				};
-				
-				if(data.rooms && data.rooms.length > 0){
-					App.displayRoom(data.rooms[0]);
-				}
 				
 				App.socket.on('message', function(message) {
 					if(App.rooms[message.roomId]){
 						App.rooms[message.roomId].addMessage(message);
+						if(message.roomId !== App.actualRoom){
+							App.roomView.addNotification(message.roomId);
+						}
 					}
 				});
 				
-				App.notification.success('Successfully connected!');
-			});
-			
-			App.socket.on('disconnect', function(message) {
-				if(message === 'unauthorized'){
-					alert("Name already used!");
-				} else {
-					alert("Server closed!");
-					document.getElementsByTagName('body')[0].innerHTML = "";
+				if(data.rooms && data.rooms.length > 0){
+					App.displayRoom(data.rooms[0]);
 				}
+				App.notification.success('Successfully connected!');
 			});
 			
 			// Connect to server

@@ -35,17 +35,17 @@ chat{
 		padding: 0;
 	}
 	 /* Messages */
-	.received{
-		margin-left: 5px;
-	}
-	.sent{
-		margin-right: 5px;
+	.sent, .received{
+		margin-right: 10px;
+		margin-left: 10px;
 	}
 	.sent > span, .received > span{
 		opacity: 1;
 		padding: 10px;
 		border-radius: 10px;
 		white-space: pre-wrap;
+   	 	max-width: 100%;
+		word-wrap: break-word;
 	}
 	.sent > span{
 		color: #DDD;
@@ -67,10 +67,10 @@ chat{
 	}
 	.sent > div, .sent > span{
 		text-align: right;
-		padding-right: 10px;
+		padding-right: 5px;
 	}
 	.received > div, .received > span{
-		padding-left: 10px;
+		padding-left: 5px;
 	}
 	.empty{
 		clear: both;

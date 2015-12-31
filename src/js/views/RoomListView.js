@@ -52,15 +52,39 @@ function(Backbone,
 			});
 		},
 		events:{
-			'dblclick #roomList div': 'displayRoom'
+			'dblclick #roomList div': 'displayRoom',
+			'click span.close': 'leaveRoom',
+			'click span.add': 'createRoom'
+		},
+		createRoom: function(){
+			App.socket.emit('userList', function(){
+				
+			})
+			App.popup.confirm('Ca roule?');
+		},
+		leaveRoom: function(event){
+			var i = this.roomIndex($(event.currentTarget).parent()[0].id);
+			this.removeRoom(this.rooms[i]);
+			App.socket.emit('leaveRoom', this.rooms[i].id);
+			this.rooms.splice(i, 1);
+			App.displayRoom(this.rooms[0]);
+		},
+		roomIndex: function(roomId){
+			var i = this.rooms.length;
+			while(i--){
+				if(this.rooms[i].id === roomId) break;
+			}
+			return i;
 		},
 		displayRoom: function(event){
-			var room = _.where(this.rooms, {id: event.currentTarget.id})[0];
-			App.displayRoom(room);
+			var i = this.roomIndex(event.currentTarget.id);
+			this.rooms[i].notif = 0;
+			this.$el.find('#roomList #' + event.currentTarget.id + ' span.label').addClass('hide');
+			App.displayRoom(this.rooms[i]);
 		},
 		addRoom: function(room, silent){
 			var roomList = this.$el.find('#roomList');
-			roomList.append("<div id='" + room.id + "'>" + room.name + "</div>");
+			roomList.append("<div id='" + room.id + "'>" + room.name + "<span class='round label hide'></span><span class='close'>&times;</span></div>");
 			if(!silent) App.notification.notify(room.name + ' room opened!');
 		},
 		removeRoom: function(room, silent){
@@ -71,6 +95,14 @@ function(Backbone,
 		setActual: function(roomId){
 			this.$el.find('#roomList .actualRoom').removeClass('actualRoom');
 			this.$el.find('#roomList #' + roomId).addClass('actualRoom');	
+		},
+		addNotification: function(roomId){
+			var i = this.roomIndex(roomId);
+			this.rooms[i].notif = this.rooms[i].notif || 0;
+			this.rooms[i].notif++;
+			var $roomNotif = this.$el.find('#roomList #' + roomId + ' span.label');
+			$roomNotif.html(this.rooms[i].notif);
+			$roomNotif.removeClass('hide');
 		},
 		render: function(){
 			this.$el.html(this.template());
