@@ -9,6 +9,19 @@ add-room{
     }
     h1{
         color: #555;
+        .authorized{
+            margin-top: 20px;
+            float: right;
+            color: #444;
+            .type{
+                float:left;
+                font-size: 0.5em;
+            }
+            .switch{
+                float: left;
+                margin-left: 20px;
+            }
+        }
     }
     input[type="text"].name, input[type="text"].name:focus{
         background-color: #333;

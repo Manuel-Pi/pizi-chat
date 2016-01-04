@@ -16,6 +16,9 @@ function(Backbone,
                 App.addRoom(room);
 				view.rooms.push(room);
 				view.addRoom(room);
+				if(room.author === App.user){
+					App.displayRoom(room);
+				}
 			});
 			App.socket.on('roomDeleted', function(room) {
 				view.removeRoom(room);

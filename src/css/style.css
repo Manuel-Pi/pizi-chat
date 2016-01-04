@@ -6907,6 +6907,16 @@ add-room .choice {
 
 add-room h1 {
   color: #555; }
+  add-room h1 .authorized {
+    margin-top: 20px;
+    float: right;
+    color: #444; }
+    add-room h1 .authorized .type {
+      float: left;
+      font-size: 0.5em; }
+    add-room h1 .authorized .switch {
+      float: left;
+      margin-left: 20px; }
 
 add-room input[type="text"].name, add-room input[type="text"].name:focus {
   background-color: #333;

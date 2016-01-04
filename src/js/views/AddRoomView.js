@@ -11,7 +11,11 @@ function(Backbone,
 		},
         events: {
             'click .choice': 'choose',
-            'click li': 'select'
+            'click li': 'select',
+            'click .switch': 'setRoomType'
+        },
+        setRoomType: function(event){
+            
         },
         select: function(event){
             var $target = $(event.currentTarget);
@@ -30,7 +34,7 @@ function(Backbone,
                     view.users = users;
                     view.users.splice(users.indexOf(App.user), 1);
                     view.render({actions: {ok: true, cancel: true}, success: function(){
-                        var usersAuthorized = [App.user];
+                        var usersAuthorized = [];
                         var name = this.$el.find('input.name').val();
                         var nameExist = _.where(App.roomView.rooms, {name: name}).length > 0;
                         if(name && name !== ""  && !nameExist){
@@ -40,12 +44,10 @@ function(Backbone,
                             var newRoom = {
                                 id: name.toLowerCase(),
                                 name: name,
-                                authorized: usersAuthorized
+                                authorized: usersAuthorized.length > 0 ? usersAuthorized : 'All',
+                                author: App.user
                             };
                             App.socket.emit('addRoom', newRoom);
-                            App.roomView.rooms.push(newRoom);
-                            App.roomView.render();
-                            App.displayRoom(newRoom);
                         } else if(nameExist){
                             alert('Name exist!');
                         }
