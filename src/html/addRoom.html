@@ -1,0 +1,20 @@
+<% if(!choice){ %>
+<h1 class="choice add">Add</h1>
+<h1 class="choice join">Join</h1>
+<% } else if(choice === 'add'){ %>
+<h1>Name</h1>
+<input class="name" type="text"/>
+<h1>Users</h1>
+<ul class="add">
+    <% for(var i = 0; i < users.length; i++){ %>
+    <li id="<%= users[i] %>-choice"><%= users[i] %></li>
+    <% } %>
+</ul>
+<% } else if(choice === 'join'){ %>
+<h1>Rooms</h1>
+<ul class="join">
+    <% for(var j = 0; j < rooms.length; j++){ %>
+    <li id="<%= rooms[j].id%>-choice"><%= rooms[j].name %></li>
+    <% } %>
+</ul>
+<% }%>

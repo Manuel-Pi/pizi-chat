@@ -1,0 +1,44 @@
+add-room{
+    .choice{
+        cursor: pointer;
+        text-align: center;
+        &:hover{
+           background-color: #008CBA;
+           color: #222; 
+        }
+    }
+    h1{
+        color: #555;
+    }
+    input[type="text"].name, input[type="text"].name:focus{
+        background-color: #333;
+        color: #BBB;
+        font-size: 1.5em;
+        border-color: #555;
+    }
+    ul{
+        width: 100%;
+        height: 150px;
+        margin: 0;
+        background-color: #333;
+        border: 1px solid #555;
+        overflow-x: hidden;
+        overflow-y: auto;
+        li{
+            color: #BBB;
+            font-size: 1.5em;
+            text-indent: 10px;
+            &:hover{
+                cursor: pointer;
+                background-color: #444;
+            }
+            &.selected{
+              color: #333;
+              background-color: #008CBA;
+            }
+            & + li{
+                margin-top: 1px;
+            }
+        }
+    }
+}

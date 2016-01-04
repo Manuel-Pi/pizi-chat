@@ -1,7 +1,9 @@
 define(['backbone',
-		'text!../../html/room.html'],
+		'text!../../html/room.html',
+        'views/AddRoomView'],
 function(Backbone,
-		UserTemplate){
+		UserTemplate,
+        AddRoomView){
 	return Backbone.View.extend({
 		template : _.template(UserTemplate),
 		tagName: "room-list",
@@ -11,6 +13,7 @@ function(Backbone,
 			this.rooms = options.rooms;
 			var view = this;
 			App.socket.on('roomAdded', function(room) {
+                App.addRoom(room);
 				view.rooms.push(room);
 				view.addRoom(room);
 			});
@@ -57,10 +60,7 @@ function(Backbone,
 			'click span.add': 'createRoom'
 		},
 		createRoom: function(){
-			App.socket.emit('userList', function(){
-				
-			})
-			App.popup.confirm('Ca roule?');
+			App.popup.basic(new AddRoomView(), {actions: true});
 		},
 		leaveRoom: function(event){
 			var i = this.roomIndex($(event.currentTarget).parent()[0].id);
@@ -89,7 +89,8 @@ function(Backbone,
 		},
 		removeRoom: function(room, silent){
 			var $room = this.$el.find('#roomList #' + room.id);
-			$room.remove();
+			$room.remove();  
+            App.removeRoom(room);
 			if(!silent) App.notification.notify(room.name + ' room closed!');
 		},
 		setActual: function(roomId){

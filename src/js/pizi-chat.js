@@ -16,13 +16,13 @@ function(Backbone,
 				socket: io.connect('http://localhost:8087/pizi-chat'),
 				notification: {
 					success: function(message){
-						App.rooms[App.actualRoom].notification.success(message);
+						if(App.actualRoom) App.rooms[App.actualRoom].notification.success(message);
 					},
 					error: function(message){
-						App.rooms[App.actualRoom].notification.error(message);
+						if(App.actualRoom) App.rooms[App.actualRoom].notification.error(message);
 					},
 					notify: function(message){
-						App.rooms[App.actualRoom].notification.notify(message);
+						if(App.actualRoom) App.rooms[App.actualRoom].notification.notify(message);
 					},
 				},
 				popup: new Pizi.PopUpView(),
@@ -56,27 +56,38 @@ function(Backbone,
 				App.userView = new UserView(data);
 				$Info.append(App.userView.$el);
 				
+                App.addRoom = function(room){
+                    if(room){
+                        room.connected.push(App.user);
+                        var chatView = new ChatView({room: room});
+                        $PiziChat.prepend(chatView.$el.hide());
+                        chatView.render();
+                        App.rooms[room.id] = chatView;
+                        App.socket.emit('joinRoom', room.id);   
+                    }
+                };
+                
 				App.displayRoom = function(room){
+                    if(App.actualRoom) App.rooms[App.actualRoom].$el.hide();
 					if(room){
 						if(App.actualRoom) App.rooms[App.actualRoom].$el.hide();
-						if(App.rooms[room.id]){
-							App.rooms[room.id].$el.show();
-						} else {
-							room.connected.push(App.user);
-							var chatView = new ChatView({room: room});
-							$PiziChat.prepend(chatView.$el);
-							chatView.render();
-							App.rooms[room.id] = chatView;
-							App.socket.emit('joinRoom', room.id);
-						}
-						App.actualRoom = room.id;
+                        if(!App.rooms[room.id]) App.addRoom(room);
+                        App.actualRoom = room.id;
+                        App.rooms[App.actualRoom].$el.show();
+                        // Render room view
 						App.roomView.setActual(App.actualRoom);
 						// Render user view
 						App.userView.render(room.connected);
 					} else {
-						App.rooms[App.actualRoom].$el.html("");
+						if(App.actualRoom) App.rooms[App.actualRoom].$el.hide();
 					}
 				};
+                
+                App.removeRoom = function(room){
+                    App.rooms[room.id].remove();
+                    delete App.rooms[room.id];
+                    if(App.actualRoom === room.id) App.actualRoom = null;
+                };
 				
 				App.socket.on('message', function(message) {
 					if(App.rooms[message.roomId]){

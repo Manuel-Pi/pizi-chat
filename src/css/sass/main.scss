@@ -2,9 +2,12 @@
 @import "../../js/lib/foundation/scss/foundation";
 
 body{
-	background-color: black;
+	background-color: #222;
 	padding: 0;
 	margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 .hide{
 	display: none;
@@ -16,7 +19,7 @@ pizi-chat{
 	overflow: hidden;
 	/* Control Panel */
 	info{
-		float:left;
+		float: right;
 		height: 100%;
 		background-color: #333;
 		color: #999;
@@ -32,7 +35,43 @@ pizi-chat{
 		font-size: 1em;
 	}
 }
+popup.reveal-modal{
+    padding-top: 50px;
+    padding-right: calc(1.875rem - 10px);
+    background-color: #222;
+    border-color: #333;
+    outline: unset;
+    &> div{
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100%;
+        width: 100%;
+    }
+    &:focus{
+       border-color: #333;
+       outline: unset;
+    }
+    .content{
+       overflow:hidden;
+       padding-right: 10px;
+    }
+    .actions{
+        margin-top: 30px;
+        margin-right: 10px;
+        &.hide{
+            margin:0;
+        }
+        button{
+            margin: 0;
+        }
+        button + button{
+            margin-left: 5px;
+        }
+        overflow: hidden;
+    }
+}
 
 @import 'chat';
 @import 'roomList';
 @import 'userList';
+@import 'addRoom';
