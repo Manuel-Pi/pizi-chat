@@ -41,7 +41,10 @@ add-room{
             color: #BBB;
             font-size: 1.5em;
             text-indent: 10px;
-            &:hover{
+            &.joined{
+                color: #444;
+            }
+            &:hover:not(.joined):not(.selected){
                 cursor: pointer;
                 background-color: #444;
             }

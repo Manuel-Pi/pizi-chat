@@ -11,11 +11,17 @@ function(Backbone,
 		},
         events: {
             'click .choice': 'choose',
-            'click li': 'select',
-            'click .switch': 'setRoomType'
+            'click li:not(.joined)': 'select',
+            'click #switch': 'setRoomType'
         },
         setRoomType: function(event){
-            
+            if(event.currentTarget.checked === true){
+                this.$el.find('.type').html("Private");
+                this.$el.find('.users').removeClass("hide");
+            } else {
+                this.$el.find('.type').html("Public");
+                this.$el.find('.users').addClass("hide");
+            }
         },
         select: function(event){
             var $target = $(event.currentTarget);
@@ -35,6 +41,7 @@ function(Backbone,
                     view.users.splice(users.indexOf(App.user), 1);
                     view.render({actions: {ok: true, cancel: true}, success: function(){
                         var usersAuthorized = [];
+                        var privateRoom = this.$el.find('#switch')[0].selected;
                         var name = this.$el.find('input.name').val();
                         var nameExist = _.where(App.roomView.rooms, {name: name}).length > 0;
                         if(name && name !== ""  && !nameExist){
@@ -44,7 +51,7 @@ function(Backbone,
                             var newRoom = {
                                 id: name.toLowerCase(),
                                 name: name,
-                                authorized: usersAuthorized.length > 0 ? usersAuthorized : 'All',
+                                authorized: privateRoom ? usersAuthorized : 'All',
                                 author: App.user
                             };
                             App.socket.emit('addRoom', newRoom);
@@ -56,6 +63,9 @@ function(Backbone,
             } else if(this.choice === 'join'){
                 App.socket.emit('getRooms');
                 App.socket.once('roomList', function(rooms){
+                    var ids = _.pluck(App.roomView.rooms, 'id');
+                    var i = rooms.length;
+                    while(i--) if(ids.indexOf(rooms[i].id) > -1) rooms[i].joined = true;
                     view.rooms = rooms;
                     view.render({actions: {ok: true, cancel: true}, success: function(){
                         _.each(this.$el.find('ul li.selected'), function(li){

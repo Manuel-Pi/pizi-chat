@@ -6895,7 +6895,7 @@ room-list {
         cursor: pointer; }
 
 /* Connected Panel */
-user-list {
+user-list #user-list {
   text-indent: 5px; }
 
 add-room .choice {
@@ -6936,7 +6936,9 @@ add-room ul {
     color: #BBB;
     font-size: 1.5em;
     text-indent: 10px; }
-    add-room ul li:hover {
+    add-room ul li.joined {
+      color: #444; }
+    add-room ul li:hover:not(.joined):not(.selected) {
       cursor: pointer;
       background-color: #444; }
     add-room ul li.selected {
