@@ -1,35 +1,37 @@
-add-room{
-    .choice{
+add-room {
+    .choice {
         cursor: pointer;
         text-align: center;
-        &:hover{
-           background-color: #008CBA;
-           color: #222; 
+        &:hover {
+            background-color: #008CBA;
+            color: #222;
         }
     }
-    h1{
+    h1 {
         color: #555;
-        .authorized{
+        .authorized {
             margin-top: 20px;
             float: right;
             color: #444;
-            .type{
-                float:left;
+            overflow: hidden;
+            .type {
+                float: left;
                 font-size: 0.5em;
             }
-            .switch{
+            .switch {
                 float: left;
                 margin-left: 20px;
             }
         }
     }
-    input[type="text"].name, input[type="text"].name:focus{
+    input[type="text"].name,
+    input[type="text"].name:focus {
         background-color: #333;
         color: #BBB;
         font-size: 1.5em;
         border-color: #555;
     }
-    ul{
+    ul {
         width: 100%;
         height: 150px;
         margin: 0;
@@ -37,22 +39,22 @@ add-room{
         border: 1px solid #555;
         overflow-x: hidden;
         overflow-y: auto;
-        li{
+        li {
             color: #BBB;
             font-size: 1.5em;
             text-indent: 10px;
-            &.joined{
+            &.joined {
                 color: #444;
             }
-            &:hover:not(.joined):not(.selected){
+            &:hover:not(.joined):not(.selected) {
                 cursor: pointer;
                 background-color: #444;
             }
-            &.selected{
-              color: #333;
-              background-color: #008CBA;
+            &.selected {
+                color: #333;
+                background-color: #008CBA;
             }
-            & + li{
+            &+li {
                 margin-top: 1px;
             }
         }
