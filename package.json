@@ -28,7 +28,7 @@
   "dependencies": {
     "backbone": "~1.2.3",
     "foundation-sites": "~5.5.3",
-    "jquery": "3.1.0",
+    "jquery": "3.5.1",
     "moment": "~2",
     "pizi-backbone": "manuel-pi/pizi-backbone",
     "requirejs": "^2.3.2",
