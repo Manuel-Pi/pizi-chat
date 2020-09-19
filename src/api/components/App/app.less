@@ -1,0 +1,87 @@
+.pizi-chat{
+    &.hidden{
+        display: none;
+    }
+
+    .pizi-chat_chat{
+        position: absolute;
+        z-index: 2000;
+        bottom: 0;
+        right: 0;
+
+        background-color: transparent;
+        color: peru;
+        display: block;
+
+        &.open{
+            height: 100%;
+
+            .pastille{
+                display: none;
+            }
+            .pizi-chat_main{
+                display: block;
+                right: 0;
+            }
+        }
+
+        .pastille{
+            padding: 8px;
+            cursor: pointer;
+
+            svg{
+                font-size: 30px;
+                transform: rotatey(180deg);
+                cursor: pointer;
+            }
+
+            .unread{
+                color: #222;
+                font-size: 14px;
+                position: absolute;
+                line-height: 30px; 
+                width: 30px;
+                text-align: center;
+                height: 30px;
+                top: 7px;
+                left: 8px;
+                font-weight: bold;
+                letter-spacing: 0;
+            }
+        }
+        
+        .pizi-chat_main{
+            display: none;
+            height: 100vh;
+            width: 300px;
+            position: absolute;
+            top: 0;
+            right: -300px;
+            background-color: peru;
+            transition: right 0.4s ease-in;
+            padding: 2px;
+            box-shadow: -2px -2px 4px black;
+
+            h2{
+                margin-bottom: 6px;
+                margin-top: 2px;
+                line-height: 38px;
+                color: #222;
+                font-weight: bold;
+                font-size: 32px;
+            }
+
+            .fa-times{
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                font-size: 30px;
+                color: #222;
+                cursor: pointer;
+            }
+        }
+
+        @import "../Messages/messages";
+        @import "../Text/text";
+    }
+}

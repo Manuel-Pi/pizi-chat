@@ -1,0 +1,37 @@
+@text_button_height: 20px;
+@text_button_padding: 2px;
+
+.pizi-chat_text{
+    background-color: #222;
+    border-radius: 8px;
+    height: 70%;
+    margin-top: 2px;
+    width: 100%;
+    color: #aaa;
+    height: 120px;
+    overflow: hidden;
+    padding: 2px;
+
+    .pizi-chat_text_text{
+        height: calc(100% ~"-" @text_button_height ~"-" 2 * @text_button_padding);
+        width: 100%;
+        background-color: transparent;
+        color: #CCC;
+        resize: none;
+        outline: none;
+        border: 0;
+    }
+
+    button{
+        width: 100%;
+        font-size: @text_button_height;
+        line-height: @text_button_height;
+        padding: @text_button_padding;
+        background-color: peru;
+        text-align: center;
+        outline: none;
+        border: none;
+        border-radius: 0 0 8px 8px;
+        cursor: pointer;
+    }
+}

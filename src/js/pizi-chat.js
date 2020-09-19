@@ -9,7 +9,7 @@ if (io) {
     if (name) {
         window.App = window.App || {
             user: name,
-            socket: io.connect('http://localhost:8087/pizi-chat'),
+            socket: io('/pizi-chat'),
             notification: {
                 success: function(message) {
                     if (App.actualRoom) App.rooms[App.actualRoom].notification.success(message);

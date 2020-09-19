@@ -2,6 +2,7 @@ import Backbone from 'backbone';
 import ChatTemplate from 'text!html/chat.html';
 import MessageTemplate from 'text!html/message.html';
 import Pizi from 'pizi-backbone';
+import { App } from '../../api/components/App/App';
 
 export default Backbone.View.extend({
     template: _.template(ChatTemplate),
@@ -21,7 +22,7 @@ export default Backbone.View.extend({
     addMessage: function(message, send) {
         if (message && message.text !== "") {
             var $render = this.$el.find('.render');
-            $render.append(_.template(MessageTemplate)({ message: message, type: send ? "sent" : "received" }));
+            $render.append(_.template(MessageTemplate)({ message: message, type: App.user === message.user ? "sent" : "received" }));
             $render[0].scrollTop = $render[0].scrollHeight;
         }
     },
@@ -33,7 +34,6 @@ export default Backbone.View.extend({
             roomId: this.room.id
         };
         $text.val("");
-        this.addMessage(message, true);
         if (message.text) App.socket.emit('message', message);
     },
     render: function() {
