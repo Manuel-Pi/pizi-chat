@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type TextProps = {
@@ -7,6 +7,7 @@ type TextProps = {
  
 export const Text: FunctionComponent<TextProps> = ({onSendMessage}) => {
     const [text, setText] = useState("");
+    const textareaRef = useRef(null);
 
     const sendMessage = () => {
         if(!text) return;
@@ -14,8 +15,13 @@ export const Text: FunctionComponent<TextProps> = ({onSendMessage}) => {
         setText("");
     }
 
+    useEffect(() => {
+        textareaRef.current.focus();
+    }, []);
+
     return  <div className="pizi-chat_text" >
                 <textarea   className="pizi-chat_text_text" 
+                            ref={textareaRef}
                             onChange={(e: React.FormEvent<HTMLTextAreaElement>) => setText(e.currentTarget.value)}
                             onKeyDown={e => {
                                 if(e.key === 'Enter'){

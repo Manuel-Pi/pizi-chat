@@ -1,11 +1,15 @@
 .pizi-chat_messages{
     background-color: #222;
     border-radius: 8px;
-    height: calc(100% ~"-" 48px ~"-" 120px);
+    height: calc(100% ~"-" 48px ~"-" 90px);
     width: 100%;
     color: #aaa;
     padding: 8px 4px;
     overflow: auto;
+
+    &::-webkit-scrollbar{
+        display: none;
+    }
 
     &:after{
         content: "";
@@ -19,8 +23,8 @@
         &.sent{
             text-align: right;
             .message_text{
-                background-color: #444;
-                color: peru;
+                background-color: peru;
+                color: #222;
             }
         }
     }
@@ -30,8 +34,10 @@
     }
 
     .message_user{
-        font-size: 12px;
+        font-size: 10px;
         color: #888;
+        margin-bottom: 1px;
+        letter-spacing: 0.2px;
     }
 
     .message_text{
@@ -40,8 +46,8 @@
         white-space: pre-wrap;
         max-width: 100%;
         font-size: 16px;
-        background-color: peru;
-        color: #222;
+        background-color: #444;
+        color: var(--color-main);
         display: inline-block;
         letter-spacing: 0;
     }

@@ -38,13 +38,13 @@ class PiziChat{
                 if(this.customSwitch) this.el.classList.add("customSwitch");
         }
 
-        login(username: string, roomId: string, createRoom: boolean){
+        login(username: string, roomId: string){
                 this.socket.emit('login', username);
                 ReactDOM.render(<App socket={this.socket} username={username} room={roomId} customSwitch={this.customSwitch}/>, this.el);
 
                 this.socket.on('loginSuccess', (data: any) => {
                         let rooms = data.rooms.filter((r:any) => r.id === roomId);
-                        if(!rooms[0] && createRoom){
+                        if(!rooms[0]){
                                 this.socket.emit('addRoom', {
                                         id: roomId.toLowerCase(),
                                         name: roomId,
@@ -54,6 +54,10 @@ class PiziChat{
                         }
                         this.socket.emit('joinRoom', roomId);
                 })
+
+                this.socket.on("connect", () => {
+                        username && this.socket.emit("login", username);
+                });
         }
 
         toggleChat(){
