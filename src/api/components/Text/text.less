@@ -2,7 +2,8 @@
 @text_button_padding: 2px;
 
 .pizi-chat_text{
-    background-color: #222;
+    background-color: #111;
+    position: relative;
     border-radius: 8px;
     height: 70%;
     margin-top: 2px;
@@ -10,7 +11,7 @@
     color: #aaa;
     height: 90px;
     overflow: hidden;
-    padding: 4px 2px;
+    padding: 4px 2px 2px 2px;
 
     .pizi-chat_text_text{
         height: calc(100% ~"-" @text_button_height ~"-" 2 * @text_button_padding);
@@ -27,11 +28,60 @@
         font-size: @text_button_height;
         line-height: @text_button_height;
         padding: @text_button_padding;
-        background-color: var(--color-main);
+        background-color: #7b7837;
         text-align: center;
         outline: none;
         border: none;
         border-radius: 0 0 8px 8px;
         cursor: pointer;
+        box-shadow: -2px -2px 4px #333;
+
+        &:hover{
+            background-color: #8d883f ;
+        }
+
+        &:active{
+            background-color:#b8b361;
+        }
+    }
+
+    .audio-message{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        width: auto;
+        background-color: peru;
+        padding: 8px 12px;
+        border-radius: 50px 50px 8px 50px;
+        border: 2px solid #111;
+        box-shadow: none;
+        transition: all ease 0.4s;
+
+        &:hover{
+            background-color: #d5995d;
+        }
+
+        &:active{
+            background-color: tomato;
+            padding: 12px 18px;
+            
+            svg{
+                font-size: 38px;
+            }
+        }
+
+        &.disabled{
+            background-color: #444;
+
+            svg{
+                color: #777;
+            }
+        }
+
+        svg{
+            font-size: 24px;
+            transition: all ease 0.4s;
+        }
     }
 }

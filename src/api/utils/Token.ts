@@ -1,7 +1,7 @@
-let TOKEN: any = {};
+let TOKEN: any = null;
 export const Token = {
     async getToken(username?: string, password?: string){
-        TOKEN = TOKEN.jwt || JSON.parse(localStorage.getItem("token")) || {};
+        TOKEN = TOKEN || JSON.parse(localStorage.getItem("token")) || {};
         // Check if token is valid
         if(TOKEN.jwt){
             try{

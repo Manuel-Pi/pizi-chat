@@ -1,7 +1,7 @@
 .pizi-chat_messages{
-    background-color: #222;
+    background-color: #111;
     border-radius: 8px;
-    height: calc(100% ~"-" 48px ~"-" 90px);
+    height: calc(100% ~"-" 90px);
     width: 100%;
     color: #aaa;
     padding: 8px 4px;
@@ -20,11 +20,24 @@
     }
 
     .message{
+
+        &:nth-child(1){
+            margin-top: 160px;
+        }
+
         &.sent{
             text-align: right;
             .message_text{
                 background-color: peru;
                 color: #222;
+            }
+
+            .audio-player{
+                background-color: #666;
+
+                .duration{
+                    color: #bbb;
+                }
             }
         }
     }
@@ -50,5 +63,8 @@
         color: var(--color-main);
         display: inline-block;
         letter-spacing: 0;
+        text-align: left;
+        word-break: break-word;
     }
+
 }

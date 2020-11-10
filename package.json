@@ -8,9 +8,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --env.production",
+    "buildServer": "tsc -p tsconfig-server.json",
     "deploy": "mkdir -p ../pizi-express-server/apis/pizi-chat && rm -f -r ../pizi-express-server/apis/pizi-chat/* && cp -R ./api/* ../pizi-express-server/apis/pizi-chat",
     "buildStat": "webpack --env.production  --json > stats.json",
-    "buildDeploy": "npm run build && npm run deploy"
+    "buildDeploy": "npm run buildServer && npm run build && npm run deploy"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
@@ -18,6 +19,7 @@
     "@types/react-dom": "^16.9.6",
     "@types/react-router-dom": "^5.1.5",
     "@types/socket.io": "^2.1.4",
+    "@types/webrtc": "0.0.26",
     "babel-cli": "^6.11.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-es2015-modules-amd": "^6.8.0",
@@ -52,19 +54,20 @@
     "jsconfig.json"
   ],
   "dependencies": {
-    "backbone": "~1.2.3",
-    "foundation-sites": "~5.5.3",
-    "jquery": "3.1.0",
-    "moment": "~2",
-    "pizi-backbone": "manuel-pi/pizi-backbone",
-    "requirejs": "^2.3.2",
-    "text": "github:requirejs/text",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "audio-recorder-polyfill": "^0.4.0",
+    "backbone": "~1.2.3",
+    "foundation-sites": "~5.5.3",
+    "jquery": "3.1.0",
+    "moment": "~2",
     "normalize.css": "^8.0.1",
+    "pizi-backbone": "manuel-pi/pizi-backbone",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "requirejs": "^2.3.2",
+    "text": "github:requirejs/text"
   }
 }

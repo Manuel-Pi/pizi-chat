@@ -7,7 +7,9 @@ module.exports = {
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
 
-    entry: "./src/api/index.tsx",
+    entry: [
+        "./src/api/index.tsx"
+    ],
 
     output:{
         libraryTarget: 'umd',
@@ -56,10 +58,14 @@ module.exports = {
         /*new webpack.DefinePlugin({
             ENV_PORT: JSON.stringify(process.env.PORT),
         }),*/
-        /*new CopyPlugin({
+        new CopyPlugin({
             patterns: [
+                {
+                    from: "src/server",
+                    to: "server"
+                }
             ],
-          })*/
+        })
     ],
 
     // When importing a module whose path matches one of the following, just
